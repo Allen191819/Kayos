@@ -1,8 +1,8 @@
-GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wall -fno-stack-protector 
+GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -w -fno-stack-protector -Wno-write-strings
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o kernel.o gdt.o port.o
+objects = loader.o kernel.o gdt.o port.o interruptstubs.o interrupts.o keyboard.o mouse.o
 bins = mykernel.bin
 image = mykernel.img
 iso = mykernel.iso
@@ -12,7 +12,7 @@ clean :
 	rm -f $(objects) $(bins) $(image) $(iso)
 
 %.o: %.cpp 
-	gcc $(GCCPARAMS) -o $@ -c $<
+	g++ $(GCCPARAMS) -o $@ -c $<
 
 %.o: %.s
 	as $(ASPARAMS) -o $@ $<
