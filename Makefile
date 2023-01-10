@@ -1,16 +1,18 @@
-GPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wall
+GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wall -fno-stack-protector 
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o kernel.o
+objects = loader.o kernel.o gdt.o port.o
 bins = mykernel.bin
-image = mykernel.iso
+image = mykernel.img
+iso = mykernel.iso
 
+.PHONY: clean
 clean :
-	rm -f $(objects) $(bins) $(image)
+	rm -f $(objects) $(bins) $(image) $(iso)
 
 %.o: %.cpp 
-	g++ $(GPPPARAMS) -o $@ -c $<
+	gcc $(GCCPARAMS) -o $@ -c $<
 
 %.o: %.s
 	as $(ASPARAMS) -o $@ $<
@@ -18,7 +20,7 @@ clean :
 mykernel.bin: linker.ld $(objects)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
 
-mykernel.iso: mykernel.bin
+mykernel.iso: $(bins)
 	mkdir iso
 	mkdir iso/boot
 	mkdir iso/boot/grub
@@ -33,7 +35,16 @@ mykernel.iso: mykernel.bin
 	grub-mkrescue --output=$@ iso
 	rm -rf iso
 
-run: mykernel.iso
+run-virualbox: $(iso)
 	(killall VirtualBoxVM && sleep 1) || true
 	VirtualBoxVM --startvm "kayos" &
 
+$(image):
+	(rm $@) || true
+	qemu-img create -f qcow2 $@ 10G
+
+run: $(iso) $(image)
+	qemu-system-i386 -m 64 -smp 4 \
+		-hda $(image) \
+		-cdrom $< \
+		-boot dc &
