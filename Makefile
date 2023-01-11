@@ -1,20 +1,31 @@
-GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -w -fno-stack-protector -Wno-write-strings
+GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -w -fno-stack-protector -Wno-write-strings 
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o kernel.o gdt.o port.o interruptstubs.o interrupts.o keyboard.o mouse.o
+objects = obj/loader.o \
+		  obj/kernel.o \
+		  obj/gdt.o \
+		  obj/hardwarecommunication/port.o \
+		  obj/hardwarecommunication/interruptstubs.o \
+		  obj/hardwarecommunication/interrupts.o \
+		  obj/drivers/driver.o \
+		  obj/drivers/keyboard.o \
+		  obj/drivers/mouse.o \
+
 bins = mykernel.bin
 image = mykernel.img
 iso = mykernel.iso
 
-.PHONY: clean
+.PHONY: clean all
 clean :
-	rm -f $(objects) $(bins) $(image) $(iso)
+	rm -rf obj $(bins) $(image) $(iso)
 
-%.o: %.cpp 
+obj/%.o: src/%.cpp 
+	mkdir -p $(@D)
 	g++ $(GCCPARAMS) -o $@ -c $<
 
-%.o: %.s
+obj/%.o: src/%.s
+	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
 
 mykernel.bin: linker.ld $(objects)
@@ -35,7 +46,9 @@ mykernel.iso: $(bins)
 	grub-mkrescue --output=$@ iso
 	rm -rf iso
 
-run-virualbox: $(iso)
+virualbox:
+	make clean
+	make $(iso)
 	(killall VirtualBoxVM && sleep 1) || true
 	VirtualBoxVM --startvm "kayos" &
 
@@ -43,8 +56,11 @@ $(image):
 	(rm $@) || true
 	qemu-img create -f qcow2 $@ 10G
 
-run: $(iso) $(image)
+qemu:
+	make clean
+	make $(iso)
+	make $(image)
 	qemu-system-i386 -m 64 -smp 4 \
 		-hda $(image) \
-		-cdrom $< \
+		-cdrom $(iso) \
 		-boot dc &
