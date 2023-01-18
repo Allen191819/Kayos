@@ -6,11 +6,16 @@ objects = obj/loader.o \
 		  obj/kernel.o \
 		  obj/gdt.o \
 		  obj/hardwarecommunication/port.o \
+		  obj/hardwarecommunication/pci.o \
 		  obj/hardwarecommunication/interruptstubs.o \
 		  obj/hardwarecommunication/interrupts.o \
 		  obj/drivers/driver.o \
 		  obj/drivers/keyboard.o \
 		  obj/drivers/mouse.o \
+		  obj/drivers/vga.o \
+		  obj/gui/window.o \
+		  obj/gui/desktop.o \
+		  obj/gui/widget.o \
 
 bins = mykernel.bin
 image = mykernel.img
@@ -46,14 +51,13 @@ mykernel.iso: $(bins)
 	grub-mkrescue --output=$@ iso
 	rm -rf iso
 
-virualbox:
+run:
 	make clean
 	make $(iso)
 	(killall VirtualBoxVM && sleep 1) || true
 	VirtualBoxVM --startvm "kayos" &
 
 $(image):
-	(rm $@) || true
 	qemu-img create -f qcow2 $@ 10G
 
 qemu:

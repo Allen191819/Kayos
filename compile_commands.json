@@ -13,12 +13,12 @@
       "-Wno-write-strings",
       "-c",
       "-o",
-      "obj/kernel.o",
-      "src/kernel.cpp"
+      "obj/gui/window.o",
+      "src/gui/window.cpp"
     ],
     "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/kernel.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/kernel.o"
+    "file": "/home/allen/Workplace/kayos/src/gui/window.cpp",
+    "output": "/home/allen/Workplace/kayos/obj/gui/window.o"
   },
   {
     "arguments": [
@@ -34,12 +34,12 @@
       "-Wno-write-strings",
       "-c",
       "-o",
-      "obj/gdt.o",
-      "src/gdt.cpp"
+      "obj/gui/desktop.o",
+      "src/gui/desktop.cpp"
     ],
     "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/gdt.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/gdt.o"
+    "file": "/home/allen/Workplace/kayos/src/gui/desktop.cpp",
+    "output": "/home/allen/Workplace/kayos/obj/gui/desktop.o"
   },
   {
     "arguments": [
@@ -55,95 +55,11 @@
       "-Wno-write-strings",
       "-c",
       "-o",
-      "obj/hardwarecommunication/port.o",
-      "src/hardwarecommunication/port.cpp"
+      "obj/gui/widget.o",
+      "src/gui/widget.cpp"
     ],
     "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/hardwarecommunication/port.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/hardwarecommunication/port.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/g++",
-      "-m32",
-      "-Iinclude",
-      "-fno-use-cxa-atexit",
-      "-fno-builtin",
-      "-fno-rtti",
-      "-fno-exceptions",
-      "-w",
-      "-fno-stack-protector",
-      "-Wno-write-strings",
-      "-c",
-      "-o",
-      "obj/hardwarecommunication/interrupts.o",
-      "src/hardwarecommunication/interrupts.cpp"
-    ],
-    "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/hardwarecommunication/interrupts.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/hardwarecommunication/interrupts.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/g++",
-      "-m32",
-      "-Iinclude",
-      "-fno-use-cxa-atexit",
-      "-fno-builtin",
-      "-fno-rtti",
-      "-fno-exceptions",
-      "-w",
-      "-fno-stack-protector",
-      "-Wno-write-strings",
-      "-c",
-      "-o",
-      "obj/drivers/driver.o",
-      "src/drivers/driver.cpp"
-    ],
-    "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/drivers/driver.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/drivers/driver.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/g++",
-      "-m32",
-      "-Iinclude",
-      "-fno-use-cxa-atexit",
-      "-fno-builtin",
-      "-fno-rtti",
-      "-fno-exceptions",
-      "-w",
-      "-fno-stack-protector",
-      "-Wno-write-strings",
-      "-c",
-      "-o",
-      "obj/drivers/keyboard.o",
-      "src/drivers/keyboard.cpp"
-    ],
-    "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/drivers/keyboard.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/drivers/keyboard.o"
-  },
-  {
-    "arguments": [
-      "/opt/cuda/bin/g++",
-      "-m32",
-      "-Iinclude",
-      "-fno-use-cxa-atexit",
-      "-fno-builtin",
-      "-fno-rtti",
-      "-fno-exceptions",
-      "-w",
-      "-fno-stack-protector",
-      "-Wno-write-strings",
-      "-c",
-      "-o",
-      "obj/drivers/mouse.o",
-      "src/drivers/mouse.cpp"
-    ],
-    "directory": "/home/allen/Workplace/kayos",
-    "file": "/home/allen/Workplace/kayos/src/drivers/mouse.cpp",
-    "output": "/home/allen/Workplace/kayos/obj/drivers/mouse.o"
+    "file": "/home/allen/Workplace/kayos/src/gui/widget.cpp",
+    "output": "/home/allen/Workplace/kayos/obj/gui/widget.o"
   }
 ]

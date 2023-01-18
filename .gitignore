@@ -1,0 +1,7 @@
+*.o
+*.iso
+*.bin
+*.img
+.cache/
+.obj/
+compile_commands.json
